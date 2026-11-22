@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración | Estética Unisex Irene</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
+    .admin-layout { display: flex; min-height: 100vh; }
+    .sidebar { width: 260px; background: #0f172a; color: #fff; padding: 25px 0; display: flex; flex-direction: column; }
+    .sidebar-brand { padding: 0 25px 25px; border-bottom: 1px solid #1e293b; display: flex; align-items: center; gap: 12px; }
+    .sidebar-menu { list-style: none; padding: 20px 0; flex-grow: 1; }
+    .sidebar-menu li a { display: flex; align-items: center; gap: 12px; padding: 12px 25px; color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600; transition: var(--transition); border-left: 3px solid transparent; }
+    .sidebar-menu li a:hover, .sidebar-menu li a.active { background: #1e293b; color: #fff; border-left-color: var(--primary); }
+    .sidebar-menu li a svg { width: 18px; height: 18px; }
+    .main-admin-content { flex: 1; padding: 30px; overflow-y: auto; }
+    .admin-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: #fff; padding: 18px 25px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .admin-tab-pane { display: none; }
+    .admin-tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+    @media (max-width: 800px) {
+      .admin-layout { flex-direction: column; }
+      .sidebar { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA DE LOGIN DE ADMINISTRADOR -->
+  <div id="loginScreen" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f172a, #0f766e); padding: 20px;">
+    <div style="background: #ffffff; border-radius: var(--radius-lg); max-width: 420px; width: 100%; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); text-align: center;">
+      <div class="logo-badge" style="margin: 0 auto 15px; width: 55px; height: 55px; font-size: 26px;">I</div>
+      <h2 style="font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 6px;">Estética Unisex Irene</h2>
+      <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 25px;">Acceso exclusivo para el personal de administración</p>
+      
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label" for="adminPassword">Contraseña de Administrador</label>
+          <input type="password" id="adminPassword" class="form-control" placeholder="Ingresa contraseña (ej. irene2026)" required autofocus>
+          <small style="color: var(--text-muted); font-size: 12px; margin-top: 5px; display: block;">Clave por defecto: <strong>irene2026</strong></small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 10px;">
+          Ingresar al Panel
+        </button>
+      </form>
+      <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
+        <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600;">&larr; Volver a la Página Principal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL DE ADMINISTRACIÓN (VISIBLE TRAS LOGIN) -->
+  <div class="admin-layout" id="adminLayout" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-badge" style="width: 38px; height: 38px; font-size: 18px;">I</div>
+        <div>
+          <h3 style="font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2;">Estética Irene</h3>
+          <span style="font-size: 11px; color: #2dd4bf; text-transform: uppercase; font-weight: 700;">Panel Admin</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="#" class="active" onclick="switchAdminTab('dashboard', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="switchAdminTab('citas', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Revisar Citas
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="switchAdminTab('productos', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Gestión de Productos
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="switchAdminTab('servicios', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+            Servicios y Precios
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="switchAdminTab('cotizaciones', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Cotizaciones Recibidas
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="switchAdminTab('correos', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Confirmaciones por Correo
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="switchAdminTab('avisos', this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Avisos y Actualizaciones
+          </a>
+        </li>
+      </ul>
+
+      <div style="padding: 20px 25px; border-top: 1px solid #1e293b;">
+        <button class="btn btn-outline btn-sm" style="width: 100%; color: #ef4444; border-color: #ef4444;" onclick="logoutAdmin()">
+          Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-admin-content">
+      <!-- Topbar -->
+      <div class="admin-topbar">
+        <div>
+          <h2 style="font-size: 20px; font-weight: 800; color: var(--dark);" id="topbarTitle">Dashboard General</h2>
+          <span style="font-size: 13px; color: var(--text-muted);">Estética Unisex Irene &bull; Sistema de Citas y Catálogo</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <a href="index.html" target="_blank" class="btn btn-outline btn-sm">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Ver Sitio Público
+          </a>
+          <span class="admin-badge">Admin Activo</span>
+        </div>
+      </div>
+
+      <!-- ================= TAB: DASHBOARD ================= -->
+      <div class="admin-tab-pane active" id="tab-dashboard">
+        <!-- Métricas KPI -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon teal">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+            </div>
+            <div class="metric-info">
+              <h5>Citas de Hoy</h5>
+              <div class="val" id="metricTodayAppointments">0</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon amber">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="metric-info">
+              <h5>Citas Pendientes</h5>
+              <div class="val" id="metricPendingAppointments">0</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon blue">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg>
+            </div>
+            <div class="metric-info">
+              <h5>Total Productos</h5>
+              <div class="val" id="metricTotalProducts">0</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon emerald">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="metric-info">
+              <h5>Ingresos Proyectados</h5>
+              <div class="val" id="metricProjectedRevenue">$0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Citas Recientes / Próximas -->
+        <div style="background: #fff; padding: 25px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 30px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="font-size: 17px; font-weight: 700; color: var(--dark);">Próximas Citas Programadas</h3>
+            <button class="btn btn-primary btn-sm" onclick="switchAdminTab('citas')">Ver Todas las Citas &rarr;</button>
+          </div>
+          <div class="data-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Folio</th>
+                  <th>Cliente</th>
+                  <th>Servicio</th>
+                  <th>Estilista</th>
+                  <th>Fecha & Hora</th>
+                  <th>Monto a Cobrar</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="dashboardAppointmentsTable">
+                <tr><td colspan="8" style="text-align: center; color: var(--text-muted);">Cargando citas...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= TAB: REVISAR CITAS ================= -->
+      <div class="admin-tab-pane" id="tab-citas">
+        <div style="background: #fff; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px;">
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <label class="form-label" style="margin: 0; font-size: 13px;">Filtrar por Estado:</label>
+            <select id="appointmentStatusFilter" class="form-control" style="width: 160px; padding: 8px;" onchange="loadAdminAppointments()">
+              <option value="Todos">Todos los estados</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Confirmada">Confirmada</option>
+              <option value="Completada">Completada</option>
+              <option value="Cancelada">Cancelada</option>
+            </select>
+
+            <label class="form-label" style="margin: 0 0 0 10px; font-size: 13px;">Fecha:</label>
+            <input type="date" id="appointmentDateFilter" class="form-control" style="width: 160px; padding: 8px;" onchange="loadAdminAppointments()">
+            <button class="btn btn-secondary btn-sm" onclick="clearDateFilter()">Limpiar</button>
+          </div>
+
+          <button class="btn btn-outline btn-sm" onclick="loadAdminAppointments()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            Refrescar Lista
+          </button>
+        </div>
+
+        <div class="data-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Cliente y Contacto</th>
+                <th>Servicio</th>
+                <th>Estilista</th>
+                <th>Fecha y Hora</th>
+                <th>Monto por Pagar</th>
+                <th>Notas</th>
+                <th>Estado</th>
+                <th>Gestión</th>
+              </tr>
+            </thead>
+            <tbody id="fullAppointmentsTable">
+              <!-- Renderizado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB: GESTIÓN DE PRODUCTOS (AGREGAR / EDITAR) ================= -->
+      <div class="admin-tab-pane" id="tab-productos">
+        <div style="background: #fff; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px;">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <input type="text" id="adminProductSearch" placeholder="Buscar producto..." class="form-control" style="width: 250px; padding: 8px;" onkeyup="loadAdminProducts()">
+            <select id="adminProductCategoryFilter" class="form-control" style="width: 180px; padding: 8px;" onchange="loadAdminProducts()">
+              <option value="Todos">Todas las categorías</option>
+              <option value="Cuidado Capilar">Cuidado Capilar</option>
+              <option value="Barbería & Caballero">Barbería & Caballero</option>
+              <option value="Cuidado Facial">Cuidado Facial</option>
+              <option value="Uñas & Spa">Uñas & Spa</option>
+            </select>
+          </div>
+
+          <!-- BOTÓN PARA AGREGAR PRODUCTO (Petición explícita del usuario) -->
+          <button class="btn btn-primary" onclick="openNewProductModal()">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            + Agregar Nuevo Producto
+          </button>
+        </div>
+
+        <div class="data-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre del Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock / Existencias</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTable">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB: SERVICIOS Y PRECIOS ================= -->
+      <div class="admin-tab-pane" id="tab-servicios">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h3 style="font-size: 18px; font-weight: 700; color: var(--dark);">Catálogo de Servicios del Salón</h3>
+          <button class="btn btn-primary" onclick="openNewServiceModal()">
+            + Agregar Nuevo Servicio
+          </button>
+        </div>
+
+        <div class="data-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nombre del Servicio</th>
+                <th>Categoría</th>
+                <th>Precio ($ MXN)</th>
+                <th>Duración (minutos)</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="adminServicesTable">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB: COTIZACIONES RECIBIDAS ================= -->
+      <div class="admin-tab-pane" id="tab-cotizaciones">
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 15px;">Historial de Cotizaciones Registradas</h3>
+        <div class="data-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Cliente</th>
+                <th>Contacto</th>
+                <th>Artículos Cotizados</th>
+                <th>Monto Estimado</th>
+                <th>Fecha de Registro</th>
+                <th>Contacto WhatsApp</th>
+              </tr>
+            </thead>
+            <tbody id="adminQuotesTable">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB: CONFIRMACIONES POR CORREO (DIAGRAMA) ================= -->
+      <div class="admin-tab-pane" id="tab-correos">
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Bandeja de Confirmaciones por Correo Electrónico</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;">
+          Registro de los correos automáticos generados al agendar citas ("Confirmación por correo", según el mecanismo de venta).
+        </p>
+        <div class="data-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Destinatario</th>
+                <th>Asunto</th>
+                <th>Folio Asociado</th>
+                <th>Fecha y Hora</th>
+                <th>Estado de Envío</th>
+                <th>Ver Correo</th>
+              </tr>
+            </thead>
+            <tbody id="adminEmailLogsTable">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB: AVISOS Y ACTUALIZACIONES ================= -->
+      <div class="admin-tab-pane" id="tab-avisos">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div>
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--dark);">Avisos Continuos y Actualizaciones</h3>
+            <span style="font-size: 13px; color: var(--text-muted);">Gestiona las promociones y novedades mostradas a los clientes.</span>
+          </div>
+          <button class="btn btn-primary" onclick="openNewAnnouncementModal()">
+            + Publicar Nuevo Aviso
+          </button>
+        </div>
+
+        <div class="data-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Distintivo</th>
+                <th>Título del Aviso</th>
+                <th>Contenido</th>
+                <th>Fecha Publicación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="adminAnnouncementsTable">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= MODAL: AGREGAR / EDITAR PRODUCTO ================= -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="productModalTitle">Agregar Nuevo Producto</h3>
+        <button class="modal-close-btn" onclick="closeProductModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSaveProduct(event)">
+        <input type="hidden" id="prodEditId" value="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="prodName">Nombre del Producto *</label>
+            <input type="text" id="prodName" class="form-control" placeholder="Ej. Shampoo Keratina Reparadora 500ml" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+              <label class="form-label" for="prodCategory">Categoría *</label>
+              <select id="prodCategory" class="form-control" required>
+                <option value="Cuidado Capilar">Cuidado Capilar</option>
+                <option value="Barbería & Caballero">Barbería & Caballero</option>
+                <option value="Cuidado Facial">Cuidado Facial</option>
+                <option value="Uñas & Spa">Uñas & Spa</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prodPrice">Precio ($ MXN) *</label>
+              <input type="number" step="0.5" min="1" id="prodPrice" class="form-control" placeholder="Ej. 350.00" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodStock">Existencias en Stock *</label>
+            <input type="number" min="0" id="prodStock" class="form-control" placeholder="Ej. 15" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodDescription">Descripción del Producto</label>
+            <textarea id="prodDescription" class="form-control" rows="3" placeholder="Detalles de beneficios, modo de uso o características clave"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodImageUrl">URL de la Imagen (o elige un preset abajo)</label>
+            <input type="url" id="prodImageUrl" class="form-control" placeholder="https://..." value="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=500&auto=format&fit=crop&q=60">
+            <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setPresetImage('https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500&auto=format&fit=crop&q=60')">Shampoo/Capilar</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setPresetImage('https://images.unsplash.com/photo-1608248597359-07b9737976fe?w=500&auto=format&fit=crop&q=60')">Aceite Argán</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setPresetImage('https://images.unsplash.com/photo-1621607512214-68297480165e?w=500&auto=format&fit=crop&q=60')">Cera Barbería</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setPresetImage('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&auto=format&fit=crop&q=60')">Serum Facial</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setPresetImage('https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&auto=format&fit=crop&q=60')">Esmalte Uñas</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveProduct">Guardar Producto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: AGREGAR / EDITAR SERVICIO ================= -->
+  <div class="modal-overlay" id="serviceModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="serviceModalTitle">Agregar Servicio</h3>
+        <button class="modal-close-btn" onclick="closeServiceModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSaveService(event)">
+        <input type="hidden" id="serviceEditId" value="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="servName">Nombre del Servicio *</label>
+            <input type="text" id="servName" class="form-control" placeholder="Ej. Corte de Cabello Dama" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+              <label class="form-label" for="servCategory">Categoría *</label>
+              <input type="text" id="servCategory" class="form-control" placeholder="Ej. Cortes, Colorimetría, etc." required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="servPrice">Precio ($ MXN) *</label>
+              <input type="number" step="0.5" id="servPrice" class="form-control" placeholder="Ej. 280.00" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="servDuration">Duración estimada (minutos)</label>
+            <input type="number" id="servDuration" class="form-control" placeholder="45" value="45">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="servDesc">Descripción del servicio</label>
+            <textarea id="servDesc" class="form-control" rows="2" placeholder="Qué incluye el servicio"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Servicio</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: NUEVO AVISO ================= -->
+  <div class="modal-overlay" id="announcementModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Publicar Aviso o Actualización</h3>
+        <button class="modal-close-btn" onclick="closeAnnouncementModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSaveAnnouncement(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="annBadge">Etiqueta / Distintivo</label>
+            <input type="text" id="annBadge" class="form-control" placeholder="Ej. Promoción, Importante, Horario Especial" value="Novedad" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="annTitle">Título del Aviso *</label>
+            <input type="text" id="annTitle" class="form-control" placeholder="Ej. 20% de descuento en tintes los jueves" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="annContent">Contenido / Mensaje *</label>
+            <textarea id="annContent" class="form-control" rows="3" placeholder="Detalles del aviso para los clientes..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAnnouncementModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Publicar Aviso</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: VER CORREO ELECTRÓNICO ================= -->
+  <div class="modal-overlay" id="viewEmailModal">
+    <div class="modal-content" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3 id="viewEmailSubject">Vista de Correo Enviado</h3>
+        <button class="modal-close-btn" onclick="closeViewEmailModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
+          Enviado a: <strong id="viewEmailRecipient" style="color: var(--dark);"></strong>
+        </p>
+        <div id="viewEmailBody" style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeViewEmailModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
