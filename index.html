@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estética Unisex Irene | Citas en Línea, Catálogo y Cotizador</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ================= GOOGLE ANALYTICS 4 (GA4) ================= -->
+  <!-- Reemplaza 'G-XXXXXXXXXX' con tu ID de medición de Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    /* Botón Flotante para la Encuesta del PMV (Punto G) */
+    .survey-floating-btn {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      background: linear-gradient(135deg, #0f766e, #0d9488);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(13, 148, 136, 0.4);
+      cursor: pointer;
+      z-index: 1500;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .survey-floating-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(13, 148, 136, 0.55);
+      background: linear-gradient(135deg, #115e59, #0f766e);
+    }
+    .survey-pulse-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #fef08a;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulseAnim 1.8s infinite;
+    }
+    @keyframes pulseAnim {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.4); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+    .rating-stars {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    .rating-star-btn {
+      font-size: 24px;
+      color: #cbd5e1;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+    .rating-star-btn.active, .rating-star-btn:hover {
+      color: #f59e0b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón Flotante de Encuesta Voluntaria (Rúbrica: Recopilación de datos del PMV) -->
+  <button class="survey-floating-btn" onclick="openSurveyModal()" title="Evalúa este Producto Mínimo Viable (PMV)">
+    <span class="survey-pulse-dot"></span>
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    <span>Encuesta del PMV</span>
+  </button>
+
+  <!-- Barra Superior de Avisos Continuos -->
+  <div class="top-announcement-bar" id="topAnnouncement">
+    <span>✨ <strong>Aviso Especial:</strong> ¡Agenda en línea y recibe confirmación inmediata por correo y WhatsApp!</span>
+    <a href="#agendar" onclick="scrollToSection('agendar')">Agendar Cita Ahora &rarr;</a>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-badge">I</div>
+        <div class="brand-text">
+          <h1>Estética Unisex Irene</h1>
+          <span>Belleza &bull; Cuidado &bull; Estilo</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#inicio" class="active">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#agendar">Agendar Cita</a></li>
+        <li><a href="#cotizador">Cotizador</a></li>
+        <li><a href="#avisos">Avisos</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Botón Cotizador / Carrito -->
+        <button class="cart-trigger-btn" id="openCartBtn" onclick="openQuoteModal()">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>Cotización</span>
+          <span class="cart-badge" id="cartCountBadge">0</span>
+        </button>
+
+        <!-- Botón Acceso Admin -->
+        <a href="admin.html" class="btn btn-outline btn-sm" title="Panel de Administración">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+          Admin
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="inicio">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge-tag">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Servicio en Línea Especializado
+        </div>
+        <h2 class="hero-title">Realza tu estilo en <span>Estética Unisex Irene</span></h2>
+        <p class="hero-subtitle">
+          Descubre nuestra gama de servicios profesionales para damas, caballeros y niños. Consulta disponibilidad en tiempo real, cotiza tus productos favoritos y recibe confirmación instantánea por correo.
+        </p>
+        <div class="hero-buttons">
+          <a href="#agendar" class="btn btn-primary btn-lg" onclick="scrollToSection('agendar')">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar Cita en Línea
+          </a>
+          <a href="#catalogo" class="btn btn-outline btn-lg" style="color: #fff; border-color: rgba(255,255,255,0.4);" onclick="scrollToSection('catalogo')">
+            Ver Catálogo de Productos
+          </a>
+        </div>
+      </div>
+
+      <!-- Tarjeta Flotante: Flujo del Negocio (según la imagen del usuario) -->
+      <div class="hero-card-preview">
+        <h3>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Proceso de Venta y Cita Digital
+        </h3>
+        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 16px;">
+          Flujo automatizado de atención para clientes y gestión para administradores:
+        </p>
+        <div class="workflow-steps-mini">
+          <div class="mini-step">
+            <div class="mini-step-num">1</div>
+            <div><strong>Consultar Catálogo:</strong> Línea profesional de cuidado capilar y belleza.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">2</div>
+            <div><strong>Disponibilidad de Horario:</strong> Elige tu día, hora y estilista en vivo.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">3</div>
+            <div><strong>Aviso de Monto por Pagar:</strong> Conoce tu total y cotización transparente.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">4</div>
+            <div><strong>Confirmación por Correo y Avisos:</strong> Folio con copia directa a WhatsApp.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN DE SERVICIOS ================= -->
+  <section class="section section-alt" id="servicios">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Lo que ofrecemos</span>
+        <h3 class="section-title">Nuestros Servicios Profesionales</h3>
+        <p class="section-desc">Cortes, peinados, colorimetría, barbería y tratamientos con los más altos estándares de calidad e higiene.</p>
+      </div>
+
+      <div class="services-grid" id="servicesGrid">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1/-1;">Cargando servicios disponibles...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN DE AGENDAR CITA (WORKFLOW) ================= -->
+  <section class="section" id="agendar">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Mecanismo de Reserva</span>
+        <h3 class="section-title">Agendar Cita en Línea</h3>
+        <p class="section-desc">Consulta disponibilidad en tiempo real y recibe el aviso de monto por pagar con confirmación inmediata.</p>
+      </div>
+
+      <div class="appointment-booking-box">
+        <!-- Pasos Visuales -->
+        <div class="booking-progress">
+          <div class="progress-step active" id="progStep1">
+            <span>1. Servicio y Estilista</span>
+          </div>
+          <div class="progress-step" id="progStep2">
+            <span>2. Fecha y Horario</span>
+          </div>
+          <div class="progress-step" id="progStep3">
+            <span>3. Datos & Confirmación</span>
+          </div>
+        </div>
+
+        <div class="booking-body">
+          <!-- Paso 1: Selección de Servicio y Especialista -->
+          <div class="wizard-step-pane active" id="stepPane1">
+            <h4 style="font-size: 18px; margin-bottom: 15px; color: var(--dark);">Paso 1: Selecciona el servicio y tu estilista preferido</h4>
+            
+            <div class="form-group">
+              <label class="form-label" for="bookingService">Servicio a Realizar *</label>
+              <select id="bookingService" class="form-control" onchange="onBookingServiceChange()">
+                <option value="">-- Elige un servicio del catálogo --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bookingStaff">Estilista / Especialista</label>
+              <select id="bookingStaff" class="form-control" onchange="fetchAvailability()">
+                <!-- Cargado dinámicamente -->
+              </select>
+            </div>
+
+            <div id="serviceSummaryPreview" style="display: none; background: #f0fdfa; border: 1px solid #ccfbf1; padding: 14px; border-radius: 8px; margin-bottom: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <strong id="previewServiceName" style="color: #0f766e;"></strong>
+                  <div id="previewServiceDesc" style="font-size: 13px; color: #475569;"></div>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 11px; text-transform: uppercase; color: #64748b; display: block;">Monto del servicio</span>
+                  <strong id="previewServicePrice" style="font-size: 18px; color: #0d9488;">$0.00 MXN</strong>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: right;">
+              <button class="btn btn-primary" onclick="goToStep(2)">Continuar a Horarios &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Paso 2: Disponibilidad de Horario (Diagrama) -->
+          <div class="wizard-step-pane" id="stepPane2">
+            <h4 style="font-size: 18px; margin-bottom: 15px; color: var(--dark);">Paso 2: Consultar disponibilidad de horario</h4>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px;">
+              <div class="form-group">
+                <label class="form-label" for="bookingDate">Fecha deseada *</label>
+                <input type="date" id="bookingDate" class="form-control" onchange="fetchAvailability()">
+                <small style="color: var(--text-muted); font-size: 12px; margin-top: 4px; display: block;">Abierto de Lunes a Domingo (09:00 a 19:00 hrs)</small>
+              </div>
+
+              <div>
+                <label class="form-label">Horarios Disponibles *</label>
+                <div class="time-slots-grid" id="timeSlotsContainer">
+                  <div style="grid-column: 1/-1; color: var(--text-muted); font-size: 13px;">Selecciona una fecha para ver horarios...</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 25px;">
+              <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Volver</button>
+              <button class="btn btn-primary" id="btnToStep3" onclick="goToStep(3)" disabled>Continuar a Datos &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Paso 3: Datos del Cliente y Aviso de Monto por Pagar -->
+          <div class="wizard-step-pane" id="stepPane3">
+            <h4 style="font-size: 18px; margin-bottom: 15px; color: var(--dark);">Paso 3: Datos de contacto y aviso de monto por pagar</h4>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div class="form-group">
+                <label class="form-label" for="clientName">Nombre Completo *</label>
+                <input type="text" id="clientName" class="form-control" placeholder="Ej. Ana Patricia Morales">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="clientPhone">Teléfono / WhatsApp *</label>
+                <input type="tel" id="clientPhone" class="form-control" placeholder="Ej. 5512345678">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clientEmail">Correo Electrónico (para confirmación) *</label>
+              <input type="email" id="clientEmail" class="form-control" placeholder="nombre@correo.com">
+              <small style="font-size: 12px; color: var(--text-muted);">Enviaremos tu comprobante oficial con folio a esta dirección.</small>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bookingNotes">Indicaciones especiales o notas (opcional)</label>
+              <textarea id="bookingNotes" class="form-control" rows="2" placeholder="Ej. Alérgica a algún producto, tono de cabello deseado, etc."></textarea>
+            </div>
+
+            <!-- Aviso de monto por pagar (Elemento explícito del diagrama) -->
+            <div class="monto-pagar-card">
+              <div class="title">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Aviso de Monto por Pagar al Momento del Servicio
+              </div>
+              <div class="amount" id="summaryTotalAmount">$0.00 MXN</div>
+              <div class="hint" id="summaryDetailsText">Servicio: - | Fecha: - | Hora: -</div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 25px;">
+              <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Cambiar Horario</button>
+              <button class="btn btn-primary btn-lg" id="btnSubmitAppointment" onclick="submitAppointment()">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Confirmar y Agendar Cita
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN DEL CATÁLOGO DE PRODUCTOS ================= -->
+  <section class="section section-alt" id="catalogo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Catálogo Profesional</span>
+        <h3 class="section-title">Productos para el Cuidado Capilar y Belleza</h3>
+        <p class="section-desc">Adquiere o cotiza en línea los mismos productos profesionales de alta gama que utilizamos en el salón.</p>
+      </div>
+
+      <!-- Barra de Filtros y Búsqueda -->
+      <div class="catalog-toolbar">
+        <div class="category-pills" id="categoryFilterPills">
+          <button class="pill-btn active" onclick="filterCategory('Todos')">Todos</button>
+          <button class="pill-btn" onclick="filterCategory('Cuidado Capilar')">Cuidado Capilar</button>
+          <button class="pill-btn" onclick="filterCategory('Barbería & Caballero')">Barbería & Caballero</button>
+          <button class="pill-btn" onclick="filterCategory('Cuidado Facial')">Cuidado Facial</button>
+          <button class="pill-btn" onclick="filterCategory('Uñas & Spa')">Uñas & Spa</button>
+        </div>
+
+        <div class="search-box">
+          <svg width="18" height="18" fill="none" stroke="#64748b" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="productSearchInput" placeholder="Buscar producto..." onkeyup="searchProducts(this.value)">
+        </div>
+      </div>
+
+      <!-- Cuadrícula de Productos -->
+      <div class="products-grid" id="productsGrid">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1/-1;">Cargando catálogo de productos...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN DE COTIZADOR (COTIZAR PRODUCTOS O SERVICIO) ================= -->
+  <section class="section" id="cotizador">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Cotizador en Línea</span>
+        <h3 class="section-title">Cotizar Productos o Servicios</h3>
+        <p class="section-desc">Arma tu paquete a medida, consulta el costo total estimado y envíalo para una atención inmediata.</p>
+      </div>
+
+      <div class="quote-card-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h4 style="font-size: 18px; color: var(--dark);">Artículos y Servicios en tu Cotización</h4>
+          <button class="btn btn-outline btn-sm" onclick="clearCart()">Vaciar Lista</button>
+        </div>
+
+        <div id="quoteEmptyNotice" style="text-align: center; padding: 30px; color: var(--text-muted);">
+          <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto 10px; display: block; opacity: 0.5;"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Tu lista de cotización está vacía. Añade productos desde el <a href="#catalogo" style="color: var(--primary); font-weight: 600;">Catálogo</a> o servicios desde la sección de <a href="#servicios" style="color: var(--primary); font-weight: 600;">Servicios</a>.
+        </div>
+
+        <div id="quoteTableWrapper" style="display: none;">
+          <table class="quote-items-table">
+            <thead>
+              <tr>
+                <th>Elemento</th>
+                <th>Categoría</th>
+                <th>Precio Unit.</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="quoteItemsTableBody">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+
+          <div class="quote-summary-box">
+            <div class="quote-row">
+              <span>Artículos seleccionados:</span>
+              <span id="quoteTotalItems">0</span>
+            </div>
+            <div class="quote-row">
+              <span>Subtotal:</span>
+              <span id="quoteSubtotal">$0.00 MXN</span>
+            </div>
+            <div class="quote-row total">
+              <span>Monto Total Estimado:</span>
+              <span id="quoteGrandTotal">$0.00 MXN</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 15px; justify-content: flex-end;">
+            <button class="btn btn-whatsapp btn-lg" onclick="generateAndSendQuoteWhatsApp()">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.8 2.788.8 3.181 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.786-5.765-5.786zm0 10.362c-.93 0-1.815-.262-2.56-.757l-.183-.119-1.579.414.421-1.539-.126-.201c-.534-.849-.817-1.831-.816-2.836.001-2.531 2.06-4.59 4.59-4.59 2.531 0 4.59 2.059 4.59 4.59-.001 2.531-2.06 4.6-4.59 4.6z"/></svg>
+              Enviar Cotización por WhatsApp
+            </button>
+            <button class="btn btn-primary btn-lg" onclick="saveQuoteToServer()">
+              Guardar Cotización en Sistema
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN DE AVISOS CONTINUOS Y ACTUALIZACIONES ================= -->
+  <section class="section section-alt" id="avisos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Novedades</span>
+        <h3 class="section-title">Avisos Continuos y Actualizaciones</h3>
+        <p class="section-desc">Mantente al tanto de promociones especiales, cambios de horario de temporada y nuevos tratamientos en Estética Irene.</p>
+      </div>
+
+      <div class="announcements-grid" id="announcementsGrid">
+        <!-- Renderizado dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL DE ENCUESTA DEL PMV (PUNTO G - RECOPILACIÓN DE DATOS) ================= -->
+  <div class="modal-overlay" id="surveyModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 style="color: var(--primary-dark); display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Encuesta de Validación del PMV
+        </h3>
+        <button class="modal-close-btn" onclick="closeSurveyModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13.5px; color: #475569; margin-bottom: 20px;">
+          Tu opinión es fundamental para validar nuestro Producto Mínimo Viable (PMV). Por favor responde esta breve encuesta voluntaria de 1 minuto:
+        </p>
+
+        <form id="pmvSurveyForm" onsubmit="submitSurvey(event)">
+          <div class="form-group">
+            <label class="form-label">1. ¿Qué tan fácil e intuitivo fue navegar por la página y consultar servicios/productos? *</label>
+            <div class="rating-stars" id="starGroup1">
+              <button type="button" class="rating-star-btn" onclick="setRating(1, 1)">★</button>
+              <button type="button" class="rating-star-btn" onclick="setRating(1, 2)">★</button>
+              <button type="button" class="rating-star-btn" onclick="setRating(1, 3)">★</button>
+              <button type="button" class="rating-star-btn" onclick="setRating(1, 4)">★</button>
+              <button type="button" class="rating-star-btn" onclick="setRating(1, 5)">★</button>
+            </div>
+            <input type="hidden" id="surveyRating1" value="5" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">2. ¿Consideras claro y útil el aviso del monto por pagar antes de confirmar tu cita? *</label>
+            <select id="surveyClarity" class="form-control" required>
+              <option value="Muy claro y transparente">Muy claro y transparente</option>
+              <option value="Claro, pero agregaría más desglose">Claro, pero agregaría más desglose</option>
+              <option value="Poco claro">Poco claro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">3. ¿Utilizarías esta plataforma para agendar tus citas de estética en lugar de llamar por teléfono? *</label>
+            <select id="surveyPreference" class="form-control" required>
+              <option value="Sí, definitivamente prefiero en línea">Sí, definitivamente prefiero en línea</option>
+              <option value="Tal vez, dependiendo del servicio">Tal vez, dependiendo del servicio</option>
+              <option value="No, prefiero llamada tradicional">No, prefiero llamada tradicional</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">4. ¿Qué funcionalidad o mejora sugerirías para la versión final? (Opcional)</label>
+            <textarea id="surveyComments" class="form-control" rows="2" placeholder="Ej. Recordatorios automáticos por SMS, pago con tarjeta en línea, etc."></textarea>
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <button type="button" class="btn btn-secondary" onclick="closeSurveyModal()">Cerrar</button>
+            <button type="submit" class="btn btn-primary">
+              Enviar Respuestas &rarr;
+            </button>
+          </div>
+        </form>
+
+        <div id="surveySuccessAlert" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 20px; border-radius: 8px; text-align: center;">
+          <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">¡Muchas gracias por tu retroalimentación!</h4>
+          <p style="font-size: 13px;">Tus respuestas han sido registradas para la recopilación de datos de validación del PMV.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL DE CONFIRMACIÓN DE CITA (DIAGRAMA: CONFIRMACIÓN POR CORREO) ================= -->
+  <div class="modal-overlay" id="appointmentSuccessModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color: var(--primary-dark); display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          ¡Cita Registrada Exitosamente!
+        </h3>
+        <button class="modal-close-btn" onclick="closeSuccessModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <span style="font-size: 13px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">Folio Único de Cita</span>
+          <div id="confirmedFolio" style="font-size: 26px; font-weight: 800; color: var(--primary); margin-top: 4px;">#IRENE-0000</div>
+        </div>
+
+        <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 20px; font-size: 14px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: #64748b;">Cliente:</span>
+            <strong id="confirmedClientName">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: #64748b;">Servicio:</span>
+            <strong id="confirmedService">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: #64748b;">Especialista:</span>
+            <strong id="confirmedStaff">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: #64748b;">Fecha y Hora:</span>
+            <strong id="confirmedDateTime">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-top: 8px; border-top: 1px solid #e2e8f0;">
+            <span style="color: #0f766e; font-weight: 700;">Aviso de Monto por Pagar:</span>
+            <strong id="confirmedAmount" style="color: #0d9488; font-size: 18px;">$0.00 MXN</strong>
+          </div>
+        </div>
+
+        <!-- Módulo de Confirmación por Correo (según el diagrama) -->
+        <h5 style="font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Confirmación por Correo Electrónico (Vista en Vivo)
+        </h5>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
+          Se ha generado y despachado el correo de confirmación a: <strong id="confirmedEmailNotice"></strong>
+        </p>
+
+        <div class="email-preview-wrapper" id="emailPreviewContainer">
+          <!-- Renderizado del HTML del correo -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="btnSendWhatsAppConfirmation" href="#" target="_blank" class="btn btn-whatsapp">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.8 2.788.8 3.181 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.786-5.765-5.786zm0 10.362c-.93 0-1.815-.262-2.56-.757l-.183-.119-1.579.414.421-1.539-.126-.201c-.534-.849-.817-1.831-.816-2.836.001-2.531 2.06-4.59 4.59-4.59 2.531 0 4.59 2.059 4.59 4.59-.001 2.531-2.06 4.6-4.59 4.6z"/></svg>
+          Enviar Comprobante a WhatsApp
+        </a>
+        <button class="btn btn-secondary" onclick="closeSuccessModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom: 15px;">
+          <div class="logo-badge" style="background: #14b8a6;">I</div>
+          <div class="brand-text">
+            <h1 style="color: #fff;">Estética Irene</h1>
+            <span style="color: #2dd4bf;">Belleza & Cuidado</span>
+          </div>
+        </div>
+        <p style="font-size: 13.5px; line-height: 1.6;">
+          Tu espacio integral de belleza y estilo. Cortes, colorimetría avanzada, cuidado facial, barbería y venta de productos profesionales.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Enlaces Rápidos</h4>
+        <ul class="footer-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios & Precios</a></li>
+          <li><a href="#catalogo">Catálogo de Productos</a></li>
+          <li><a href="#agendar">Agendar Cita en Línea</a></li>
+          <li><a href="#cotizador">Cotizador</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Horarios de Atención</h4>
+        <ul class="footer-links">
+          <li>Lunes a Viernes: 09:00 - 19:00</li>
+          <li>Sábados: 09:00 - 18:00</li>
+          <li>Domingos: 10:00 - 16:00</li>
+          <li><em style="color: #2dd4bf;">* Se recomienda previa cita</em></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto & Ubicación</h4>
+        <p style="margin-bottom: 8px;">📍 Av. Principal #102, Zona Centro</p>
+        <p style="margin-bottom: 8px;">📞 Tel: (55) 1234-5678</p>
+        <p style="margin-bottom: 8px;">💬 WhatsApp: +52 55 1234 5678</p>
+        <p style="margin-top: 15px;">
+          <a href="admin.html" class="btn btn-outline btn-sm" style="color: #2dd4bf; border-color: #2dd4bf;">Acceso Administradores</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>Estética Unisex Irene &copy; 2026. Todos los derechos reservados.</p>
+      <p>Plataforma Web de Citas, Catálogo y Avisos Continuos | PMV Validado</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

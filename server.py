@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 PORT = 8000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "estetica_irene.db")
-STATIC_DIR = os.path.join(BASE_DIR, "static")
+STATIC_DIR = BASE_DIR
 
 
 def get_db():

@@ -1,90 +1,52 @@
-# Estética Unisex Irene - Sistema Web Integral
+# Estética Unisex Irene - PMV (Producto Mínimo Viable)
 
-Plataforma digital para **Estética Unisex Irene** que implementa la arquitectura y flujo del mecanismo de venta:
-- **Consultar catálogo de productos** (con buscador, filtros de categorías, fotos, stock y precios).
-- **Consultar disponibilidad de horario & Agendar cita** en tiempo real con selección de estilista.
-- **Aviso de monto por pagar** transparente antes y durante la confirmación.
-- **Cotizador de productos y servicios** interactivo con exportación directa a WhatsApp.
-- **Confirmación por correo electrónico** (generación y simulación de comprobante HTML con folio).
-- **Avisos continuos y actualizaciones** (promociones, horarios y novedades dinámicas).
-- **Panel Administrativo completo** para agregar/editar/eliminar productos del catálogo, revisar citas agendadas, cambiar estados, consultar cotizaciones y revisar la bandeja de correos.
+Plataforma digital para **Estética Unisex Irene** con citas en línea, catálogo de productos, cotizador, panel administrativo, integración con Google Analytics 4 y sistema de recopilación de datos (Encuesta de Validación del PMV).
 
----
+🌐 **Enlace Público en GitHub Pages:**  
+`https://sebastianegl23-lang.github.io/estetica-irene/`
 
-## 🚀 Inicio Rápido
-
-### Requisitos
-- Python 3.8 o superior (utiliza únicamente la librería estándar de Python: `http.server`, `sqlite3`, `json`, `urllib`). No requiere dependencias externas ni instalación con pip.
-
-### Ejecutar el Servidor
-En una terminal en la carpeta del proyecto:
-```bash
-python server.py
-```
-
-### URLs de Acceso
-- **Portal de Clientes:** [http://localhost:8000/](http://localhost:8000/)
-- **Panel de Administradores:** [http://localhost:8000/admin.html](http://localhost:8000/admin.html)
-
-### Credenciales de Administrador
-- **Contraseña:** `irene2026` (también acepta `admin123`)
+🔐 **Acceso al Panel de Administración:**  
+`https://sebastianegl23-lang.github.io/estetica-irene/admin.html`  
+- **Contraseña:** `irene2026` (o `admin123`)
 
 ---
 
-## 📂 Estructura del Proyecto
+## 🚀 Cómo Activar GitHub Pages (1 Clic)
 
-```
-estetica-irene/
-├── server.py               # Servidor Web Threaded y API REST en Python
-├── estetica_irene.db       # Base de datos SQLite relacional
-├── README.md               # Documentación general
-└── static/                 # Archivos estáticos
-    ├── index.html          # Portal del cliente (Citas, Catálogo, Cotizador, Avisos)
-    ├── admin.html          # Panel de administración (Productos, Citas, Métricas)
-    ├── css/
-    │   └── styles.css      # Estilos modernos y responsivos
-    └── js/
-        ├── app.js          # Lógica del cliente, agendador, disponibilidad y cotizador
-        └── admin.js        # Lógica del dashboard de administración y CRUD
-```
+1. En tu repositorio de GitHub: [https://github.com/sebastianegl23-lang/estetica-irene](https://github.com/sebastianegl23-lang/estetica-irene)
+2. Haz clic en la pestaña **Settings** (Configuración) arriba a la derecha.
+3. En el menú lateral izquierdo, haz clic en **Pages**.
+4. En **Build and deployment > Branch**:
+   - Selecciona la rama: **`main`**
+   - Selecciona la carpeta: **`/ (root)`**
+5. Haz clic en **Save** (Guardar).
+6. En 1 o 2 minutos, GitHub publicará tu sitio en:  
+   👉 **`https://sebastianegl23-lang.github.io/estetica-irene/`**
 
 ---
 
-## 💡 Características Implementadas
+## 📊 Cumplimiento de la Rúbrica: Inciso G
 
-### Para Clientes:
-1. **Catálogo de Productos:**
-   - Filtros por: Cuidado Capilar, Barbería & Caballero, Cuidado Facial, Uñas & Spa.
-   - Búsqueda en tiempo real.
-   - Indicadores de existencias en almacén (en stock / agotado).
-   - Botón "+ Cotizar" para agregar directo al carrito/cotizador.
-2. **Agendar Cita en 3 Pasos:**
-   - Paso 1: Selección de servicio y estilista preferido.
-   - Paso 2: Elección de fecha y consulta de horarios disponibles en vivo (evita empalmes).
-   - Paso 3: Datos del cliente con desglose claro del **Aviso de Monto por Pagar**.
-3. **Confirmación Digital Inmediata:**
-   - Despliegue de Folio de cita (ej. `#IRENE-261122-105`).
-   - Vista previa en pantalla del **Correo Electrónico de Confirmación**.
-   - Enlace directo a WhatsApp con los datos formateados listos para enviar al negocio.
-4. **Cotizador en Línea:**
-   - Permite cotizar combinaciones de productos y servicios.
-   - Envío de cotización formateada a WhatsApp o guardado en el servidor.
-5. **Avisos Continuos:**
-   - Sección de promociones del mes y avisos importantes.
+### 1. Publicación y Lanzamiento del PMV
+- **Servicio gratuito utilizado:** GitHub Pages (con compatibilidad de almacenamiento local `localStorage` para pruebas desde cualquier celular, tablet o PC sin necesidad de backend).
+- **Ejecución local alternativa:** También ejecutable con Python: `python server.py`.
 
-### Para Administradores:
-1. **Agregar y Gestionar Productos:**
-   - Alta de productos con nombre, categoría, precio, stock, descripción y URL de imagen.
-   - Edición de precios, existencias y fotos.
-   - Eliminación de productos obsoletos.
-2. **Revisar y Gestionar Citas:**
-   - Listado completo con filtros por estado (*Pendiente, Confirmada, Completada, Cancelada*) y por fecha.
-   - Cambio de estado en un clic.
-   - Botón directo de WhatsApp para enviar recordatorio personalizado al cliente.
-   - Opción para reenviar el correo de confirmación.
-3. **Métricas en Vivo:**
-   - Citas para el día de hoy, citas pendientes, total de productos y proyección de ingresos.
-4. **Bandeja de Confirmaciones por Correo:**
-   - Visualización de todos los correos generados con visor HTML.
-5. **Gestor de Avisos y Servicios:**
-   - Publicación de ofertas en la página principal y actualización de tarifas.
+### 2. Comprobación Multidispositivo
+- Diseño 100% responsivo (CSS Grid y Flexbox adaptables a smartphones, tablets y pantallas de escritorio).
+- Pruebas de navegación táctil para agendar citas y cotizar.
+
+### 3. Configuración de Google Analytics 4 (GA4)
+- La etiqueta de medición de GA4 está integrada en el `<head>` de `index.html` y `admin.html`:
+  ```html
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  ```
+- Para conectar tus estadísticas reales, solo reemplaza `G-XXXXXXXXXX` con tu ID de medición obtenido en [Google Analytics](https://analytics.google.com/).
+
+### 4. Recopilación de Datos y Encuesta de Validación
+- Botón flotante interactivo: **"Encuesta del PMV"** accesible para cualquier usuario que visite el sitio.
+- Evalúa:
+  1. Facilidad y usabilidad de navegación (1 a 5 estrellas).
+  2. Claridad del aviso de monto por pagar.
+  3. Intención de uso del canal digital vs tradicional.
+  4. Comentarios y sugerencias abiertas.
+- **Visualización y Descarga:** El panel de administración cuenta con una pestaña **"Encuesta PMV (Datos)"** donde se pueden consultar todas las respuestas y descargarlas en formato **CSV** para el reporte final del proyecto.
