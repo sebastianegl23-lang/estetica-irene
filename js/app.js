@@ -897,3 +897,22 @@ function showQuickToast(msg) {
     setTimeout(() => toast.remove(), 300);
   }, 2500);
 }
+
+// ---------------- MENÚ MÓVIL ---------------- //
+function toggleMobileNav() {
+  const navLinks = document.getElementById('mainNavLinks');
+  const toggleBtn = document.getElementById('mobileMenuToggle');
+  if (navLinks) {
+    navLinks.classList.toggle('mobile-open');
+  }
+  if (toggleBtn) {
+    toggleBtn.classList.toggle('open');
+  }
+}
+
+function closeMobileMenu() {
+  const navLinks = document.getElementById('mainNavLinks');
+  const toggleBtn = document.getElementById('mobileMenuToggle');
+  if (navLinks) navLinks.classList.remove('mobile-open');
+  if (toggleBtn) toggleBtn.classList.remove('open');
+}

@@ -108,28 +108,35 @@
         </div>
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#inicio" class="active">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#agendar">Agendar Cita</a></li>
-        <li><a href="#cotizador">Cotizador</a></li>
-        <li><a href="#avisos">Avisos</a></li>
+      <ul class="nav-links" id="mainNavLinks">
+        <li><a href="#inicio" class="active" onclick="closeMobileMenu()">Inicio</a></li>
+        <li><a href="#servicios" onclick="closeMobileMenu()">Servicios</a></li>
+        <li><a href="#catalogo" onclick="closeMobileMenu()">Catálogo</a></li>
+        <li><a href="#agendar" onclick="closeMobileMenu()">Agendar Cita</a></li>
+        <li><a href="#cotizador" onclick="closeMobileMenu()">Cotizador</a></li>
+        <li><a href="#avisos" onclick="closeMobileMenu()">Avisos</a></li>
       </ul>
 
       <div class="nav-actions">
         <!-- Botón Cotizador / Carrito -->
         <button class="cart-trigger-btn" id="openCartBtn" onclick="openQuoteModal()">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span>Cotización</span>
+          <span class="cart-text-label">Cotización</span>
           <span class="cart-badge" id="cartCountBadge">0</span>
         </button>
 
         <!-- Botón Acceso Admin -->
-        <a href="admin.html" class="btn btn-outline btn-sm" title="Panel de Administración">
+        <a href="admin.html" class="btn btn-outline btn-sm admin-btn-nav" title="Panel de Administración">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-          Admin
+          <span class="admin-text-label">Admin</span>
         </a>
+
+        <!-- Botón Menú Móvil (Hamburguesa) -->
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Abrir menú" onclick="toggleMobileNav()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </nav>
@@ -267,7 +274,7 @@
           <div class="wizard-step-pane" id="stepPane2">
             <h4 style="font-size: 18px; margin-bottom: 15px; color: var(--dark);">Paso 2: Consultar disponibilidad de horario</h4>
             
-            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px;">
+            <div class="booking-step2-grid">
               <div class="form-group">
                 <label class="form-label" for="bookingDate">Fecha deseada *</label>
                 <input type="date" id="bookingDate" class="form-control" onchange="fetchAvailability()">
@@ -282,7 +289,7 @@
               </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 25px;">
+            <div style="display: flex; justify-content: space-between; margin-top: 25px; gap: 10px;">
               <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Volver</button>
               <button class="btn btn-primary" id="btnToStep3" onclick="goToStep(3)" disabled>Continuar a Datos &rarr;</button>
             </div>
@@ -292,7 +299,7 @@
           <div class="wizard-step-pane" id="stepPane3">
             <h4 style="font-size: 18px; margin-bottom: 15px; color: var(--dark);">Paso 3: Datos de contacto y aviso de monto por pagar</h4>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="booking-step3-grid">
               <div class="form-group">
                 <label class="form-label" for="clientName">Nombre Completo *</label>
                 <input type="text" id="clientName" class="form-control" placeholder="Ej. Ana Patricia Morales">
@@ -391,21 +398,23 @@
         </div>
 
         <div id="quoteTableWrapper" style="display: none;">
-          <table class="quote-items-table">
-            <thead>
-              <tr>
-                <th>Elemento</th>
-                <th>Categoría</th>
-                <th>Precio Unit.</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody id="quoteItemsTableBody">
-              <!-- Renderizado dinámico -->
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="quote-items-table">
+              <thead>
+                <tr>
+                  <th>Elemento</th>
+                  <th>Categoría</th>
+                  <th>Precio Unit.</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="quoteItemsTableBody">
+                <!-- Renderizado dinámico -->
+              </tbody>
+            </table>
+          </div>
 
           <div class="quote-summary-box">
             <div class="quote-row">
