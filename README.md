@@ -43,10 +43,6 @@ Plataforma digital para **Estética Unisex Irene** con citas en línea, catálog
 - Para conectar tus estadísticas reales, solo reemplaza `G-XXXXXXXXXX` con tu ID de medición obtenido en [Google Analytics](https://analytics.google.com/).
 
 ### 4. Recopilación de Datos y Encuesta de Validación
-- Botón flotante interactivo: **"Encuesta del PMV"** accesible para cualquier usuario que visite el sitio.
-- Evalúa:
-  1. Facilidad y usabilidad de navegación (1 a 5 estrellas).
-  2. Claridad del aviso de monto por pagar.
-  3. Intención de uso del canal digital vs tradicional.
-  4. Comentarios y sugerencias abiertas.
-- **Visualización y Descarga:** El panel de administración cuenta con una pestaña **"Encuesta PMV (Datos)"** donde se pueden consultar todas las respuestas y descargarlas en formato **CSV** para el reporte final del proyecto.
+- **Encuesta Oficial en Google Forms:** [https://forms.gle/UmgKvbkTxQmPfpWo6](https://forms.gle/UmgKvbkTxQmPfpWo6)
+- **Botón flotante interactivo en la web:** Redirige directamente al formulario de Google Forms para que los usuarios del segmento de prueba respondan voluntariamente.
+- **Acceso desde Panel de Administración:** Incluye enlace directo al formulario y a la visualización de respuestas para el análisis y reporte de validación del PMV.

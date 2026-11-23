@@ -844,56 +844,14 @@ function renderAnnouncements() {
   `).join('');
 }
 
-// ---------------- ENCUESTA DE VALIDACIÓN DEL PMV (PUNTO G) ---------------- //
+// ---------------- ENCUESTA DE VALIDACIÓN DEL PMV (GOOGLE FORMS) ---------------- //
 function openSurveyModal() {
-  const modal = document.getElementById('surveyModal');
-  if (modal) {
-    document.getElementById('pmvSurveyForm').style.display = 'block';
-    document.getElementById('surveySuccessAlert').style.display = 'none';
-    modal.classList.add('active');
-  }
+  window.open('https://forms.gle/UmgKvbkTxQmPfpWo6', '_blank');
 }
 
 function closeSurveyModal() {
   const modal = document.getElementById('surveyModal');
   if (modal) modal.classList.remove('active');
-}
-
-function setRating(group, rating) {
-  document.getElementById(`surveyRating${group}`).value = rating;
-  const stars = document.querySelectorAll(`#starGroup${group} .rating-star-btn`);
-  stars.forEach((star, idx) => {
-    star.classList.toggle('active', idx < rating);
-  });
-}
-
-function submitSurvey(e) {
-  e.preventDefault();
-  const rating1 = document.getElementById('surveyRating1').value;
-  const clarity = document.getElementById('surveyClarity').value;
-  const preference = document.getElementById('surveyPreference').value;
-  const comments = document.getElementById('surveyComments').value.trim();
-
-  const responseObj = {
-    id: Date.now(),
-    date: new Date().toLocaleString(),
-    rating_usability: parseInt(rating1),
-    clarity_pricing: clarity,
-    would_use_online: preference,
-    comments: comments || "Sin comentarios adicionales"
-  };
-
-  const surveyList = JSON.parse(localStorage.getItem('irene_survey_responses') || '[]');
-  surveyList.push(responseObj);
-  localStorage.setItem('irene_survey_responses', JSON.stringify(surveyList));
-
-  // Ocultar formulario y mostrar mensaje de agradecimiento
-  document.getElementById('pmvSurveyForm').style.display = 'none';
-  document.getElementById('surveySuccessAlert').style.display = 'block';
-
-  setTimeout(() => {
-    closeSurveyModal();
-  }, 2500);
 }
 
 // ---------------- UTILIDADES ---------------- //

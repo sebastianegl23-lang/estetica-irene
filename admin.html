@@ -391,12 +391,29 @@
 
       <!-- ================= TAB: ENCUESTAS Y RECOPILACIÓN DE DATOS (PUNTO G) ================= -->
       <div class="admin-tab-pane" id="tab-encuestas">
+        <div style="background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: var(--radius-md); padding: 22px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="status-badge Confirmada" style="margin-bottom: 8px;">Google Forms Conectado</span>
+            <h4 style="color: #0f766e; font-size: 17px; font-weight: 700; margin-bottom: 4px;">Encuesta Oficial de Validación del PMV</h4>
+            <p style="color: #475569; font-size: 13.5px; margin: 0;">Enlace público de la encuesta: <a href="https://forms.gle/UmgKvbkTxQmPfpWo6" target="_blank" style="color: #0d9488; font-weight: 700;">https://forms.gle/UmgKvbkTxQmPfpWo6</a></p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <a href="https://forms.gle/UmgKvbkTxQmPfpWo6" target="_blank" class="btn btn-primary btn-sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Abrir Formulario
+            </a>
+            <a href="https://docs.google.com/forms" target="_blank" class="btn btn-outline btn-sm">
+              Ver Respuestas en Google Forms
+            </a>
+          </div>
+        </div>
+
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
           <div>
-            <h3 style="font-size: 18px; font-weight: 700; color: var(--dark);">Recopilación de Datos: Encuesta de Validación del PMV</h3>
-            <span style="font-size: 13px; color: var(--text-muted);">Respuestas voluntarias recibidas de los usuarios de prueba.</span>
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--dark);">Recopilación de Datos y Métricas de Encuesta</h3>
+            <span style="font-size: 13px; color: var(--text-muted);">Gestiona las respuestas recopiladas en la validación del PMV.</span>
           </div>
-          <button class="btn btn-outline btn-sm" onclick="exportSurveyDataCSV()">Descargar Respuestas (CSV)</button>
+          <button class="btn btn-outline btn-sm" onclick="exportSurveyDataCSV()">Descargar Respuestas Locales (CSV)</button>
         </div>
 
         <div class="data-table-container">

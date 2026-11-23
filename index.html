@@ -84,12 +84,12 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WV52HDD9"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- Botón Flotante de Encuesta Voluntaria (Rúbrica: Recopilación de datos del PMV) -->
-  <button class="survey-floating-btn" onclick="openSurveyModal()" title="Evalúa este Producto Mínimo Viable (PMV)">
+  <!-- Botón Flotante de Encuesta Voluntaria (Google Forms - Recopilación de datos del PMV) -->
+  <a href="https://forms.gle/UmgKvbkTxQmPfpWo6" target="_blank" rel="noopener noreferrer" class="survey-floating-btn" title="Responder Encuesta en Google Forms">
     <span class="survey-pulse-dot"></span>
     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-    <span>Encuesta del PMV</span>
-  </button>
+    <span>Encuesta en Google Forms</span>
+  </a>
 
   <!-- Barra Superior de Avisos Continuos -->
   <div class="top-announcement-bar" id="topAnnouncement">
@@ -451,9 +451,9 @@
     </div>
   </section>
 
-  <!-- ================= MODAL DE ENCUESTA DEL PMV (PUNTO G - RECOPILACIÓN DE DATOS) ================= -->
+  <!-- ================= MODAL DE ENCUESTA DEL PMV (GOOGLE FORMS) ================= -->
   <div class="modal-overlay" id="surveyModal">
-    <div class="modal-content" style="max-width: 600px;">
+    <div class="modal-content" style="max-width: 550px; text-align: center;">
       <div class="modal-header">
         <h3 style="color: var(--primary-dark); display: flex; align-items: center; gap: 8px;">
           <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -461,59 +461,17 @@
         </h3>
         <button class="modal-close-btn" onclick="closeSurveyModal()">&times;</button>
       </div>
-      <div class="modal-body">
-        <p style="font-size: 13.5px; color: #475569; margin-bottom: 20px;">
-          Tu opinión es fundamental para validar nuestro Producto Mínimo Viable (PMV). Por favor responde esta breve encuesta voluntaria de 1 minuto:
+      <div class="modal-body" style="padding: 30px 20px;">
+        <p style="font-size: 15px; color: #475569; margin-bottom: 25px;">
+          Tu opinión es fundamental para validar nuestro Producto Mínimo Viable. Por favor apóyanos respondiendo la encuesta oficial en Google Forms:
         </p>
-
-        <form id="pmvSurveyForm" onsubmit="submitSurvey(event)">
-          <div class="form-group">
-            <label class="form-label">1. ¿Qué tan fácil e intuitivo fue navegar por la página y consultar servicios/productos? *</label>
-            <div class="rating-stars" id="starGroup1">
-              <button type="button" class="rating-star-btn" onclick="setRating(1, 1)">★</button>
-              <button type="button" class="rating-star-btn" onclick="setRating(1, 2)">★</button>
-              <button type="button" class="rating-star-btn" onclick="setRating(1, 3)">★</button>
-              <button type="button" class="rating-star-btn" onclick="setRating(1, 4)">★</button>
-              <button type="button" class="rating-star-btn" onclick="setRating(1, 5)">★</button>
-            </div>
-            <input type="hidden" id="surveyRating1" value="5" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">2. ¿Consideras claro y útil el aviso del monto por pagar antes de confirmar tu cita? *</label>
-            <select id="surveyClarity" class="form-control" required>
-              <option value="Muy claro y transparente">Muy claro y transparente</option>
-              <option value="Claro, pero agregaría más desglose">Claro, pero agregaría más desglose</option>
-              <option value="Poco claro">Poco claro</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">3. ¿Utilizarías esta plataforma para agendar tus citas de estética en lugar de llamar por teléfono? *</label>
-            <select id="surveyPreference" class="form-control" required>
-              <option value="Sí, definitivamente prefiero en línea">Sí, definitivamente prefiero en línea</option>
-              <option value="Tal vez, dependiendo del servicio">Tal vez, dependiendo del servicio</option>
-              <option value="No, prefiero llamada tradicional">No, prefiero llamada tradicional</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">4. ¿Qué funcionalidad o mejora sugerirías para la versión final? (Opcional)</label>
-            <textarea id="surveyComments" class="form-control" rows="2" placeholder="Ej. Recordatorios automáticos por SMS, pago con tarjeta en línea, etc."></textarea>
-          </div>
-
-          <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
-            <button type="button" class="btn btn-secondary" onclick="closeSurveyModal()">Cerrar</button>
-            <button type="submit" class="btn btn-primary">
-              Enviar Respuestas &rarr;
-            </button>
-          </div>
-        </form>
-
-        <div id="surveySuccessAlert" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 20px; border-radius: 8px; text-align: center;">
-          <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">¡Muchas gracias por tu retroalimentación!</h4>
-          <p style="font-size: 13px;">Tus respuestas han sido registradas para la recopilación de datos de validación del PMV.</p>
-        </div>
+        <a href="https://forms.gle/UmgKvbkTxQmPfpWo6" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" style="width: 100%; max-width: 340px; margin: 0 auto; display: inline-flex;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Abrir Encuesta en Google Forms
+        </a>
+      </div>
+      <div class="modal-footer" style="justify-content: center;">
+        <button type="button" class="btn btn-secondary" onclick="closeSurveyModal()">Cerrar</button>
       </div>
     </div>
   </div>
