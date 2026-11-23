@@ -5,13 +5,8 @@ Plataforma digital para **Estética Unisex Irene** con citas en línea, catálog
 🌐 **Enlace Público en GitHub Pages:**  
 `https://sebastianegl23-lang.github.io/estetica-irene/`
 
-🔐 **Acceso al Panel de Administración:**  
-`https://sebastianegl23-lang.github.io/estetica-irene/admin.html`  
-- **Contraseña:** `irene2026` (o `admin123`)
 
----
-
-## 🚀 Cómo Activar GitHub Pages (1 Clic)
+Cómo Activar GitHub Pages (1 Clic)
 
 1. En tu repositorio de GitHub: [https://github.com/sebastianegl23-lang/estetica-irene](https://github.com/sebastianegl23-lang/estetica-irene)
 2. Haz clic en la pestaña **Settings** (Configuración) arriba a la derecha.
@@ -21,11 +16,11 @@ Plataforma digital para **Estética Unisex Irene** con citas en línea, catálog
    - Selecciona la carpeta: **`/ (root)`**
 5. Haz clic en **Save** (Guardar).
 6. En 1 o 2 minutos, GitHub publicará tu sitio en:  
-   👉 **`https://sebastianegl23-lang.github.io/estetica-irene/`**
+**`https://sebastianegl23-lang.github.io/estetica-irene/`**
 
 ---
 
-## 📊 Cumplimiento de la Rúbrica: Inciso G
+Cumplimiento de la Rúbrica: Inciso G
 
 ### 1. Publicación y Lanzamiento del PMV
 - **Servicio gratuito utilizado:** GitHub Pages (con compatibilidad de almacenamiento local `localStorage` para pruebas desde cualquier celular, tablet o PC sin necesidad de backend).
